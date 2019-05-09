@@ -1,27 +1,25 @@
-package com.app.nikhil.youtuberenderingapp;
+package com.app.nikhil.youtuberenderingapp.Adapter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
 
+import com.app.nikhil.youtuberenderingapp.POJO.VideoItem;
+import com.app.nikhil.youtuberenderingapp.R;
+import com.app.nikhil.youtuberenderingapp.Rest.Config;
+import com.app.nikhil.youtuberenderingapp.UI.YoutubePlayerActivity;
 import com.google.android.youtube.player.YouTubeInitializationResult;
-import com.google.android.youtube.player.YouTubePlayer;
-import com.google.android.youtube.player.YouTubePlayerView;
-import com.google.android.youtube.player.YouTubeStandalonePlayer;
+
 import com.google.android.youtube.player.YouTubeThumbnailLoader;
 import com.google.android.youtube.player.YouTubeThumbnailView;
 
 import java.util.ArrayList;
 
-public abstract class VideoAdapter extends RecyclerView.Adapter<VideoViewHolder>{
+public class VideoAdapter extends RecyclerView.Adapter<VideoViewHolder>{
 
     Context context;
     ArrayList<VideoItem> videoItemList;
@@ -44,15 +42,9 @@ public abstract class VideoAdapter extends RecyclerView.Adapter<VideoViewHolder>
         videoViewHolder.videoPlayButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                videoViewHolder.youtubeViewLayout.setVisibility(View.VISIBLE);
-//                videoViewHolder.videoPlayButton.setVisibility(View.GONE);
-//                videoViewHolder.youTubeThumbnailView.setVisibility(View.GONE);
-//                playVideo(videoViewHolder,videoItem);
 
                 context.startActivity(new Intent(context,YoutubePlayerActivity.class).putExtra("videoItem",videoItem));
 
-            //    Intent intent = YouTubeStandalonePlayer.createVideoIntent((Activity) context, Config.YOUTUBE_API_KEY, videoItem.getVideoLink());
-            //    context.startActivity(intent);
 
             }
         });
@@ -63,7 +55,7 @@ public abstract class VideoAdapter extends RecyclerView.Adapter<VideoViewHolder>
         videoViewHolder.youTubeThumbnailView.initialize(Config.YOUTUBE_API_KEY, new YouTubeThumbnailView.OnInitializedListener() {
             @Override
             public void onInitializationSuccess(YouTubeThumbnailView youTubeThumbnailView, YouTubeThumbnailLoader youTubeThumbnailLoader) {
-                youTubeThumbnailLoader.setVideo(videoItem.videoLink);
+                youTubeThumbnailLoader.setVideo(videoItem.getVideoLink());
             }
 
             @Override
@@ -84,9 +76,5 @@ public abstract class VideoAdapter extends RecyclerView.Adapter<VideoViewHolder>
         this.videoItemList = videoItemList;
     }
 
-
-
-
-    public abstract void playVideo(VideoViewHolder videoViewHolder,VideoItem videoItem);
 
 }

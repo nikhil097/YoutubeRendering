@@ -1,4 +1,4 @@
-package com.app.nikhil.youtuberenderingapp;
+package com.app.nikhil.youtuberenderingapp.Adapter;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.app.nikhil.youtuberenderingapp.R;
 import com.google.android.youtube.player.YouTubePlayerView;
 import com.google.android.youtube.player.YouTubeThumbnailView;
 

@@ -1,18 +1,21 @@
-package com.app.nikhil.youtuberenderingapp;
+package com.app.nikhil.youtuberenderingapp.UI;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.RelativeLayout;
+import android.widget.ProgressBar;
 
+import com.app.nikhil.youtuberenderingapp.ApiResponseBody.LinkResponseBody;
+import com.app.nikhil.youtuberenderingapp.R;
+import com.app.nikhil.youtuberenderingapp.Rest.ResponseCallback;
+import com.app.nikhil.youtuberenderingapp.Rest.LinkApiService;
+import com.app.nikhil.youtuberenderingapp.Adapter.VideoAdapter;
+import com.app.nikhil.youtuberenderingapp.POJO.VideoItem;
+import com.app.nikhil.youtuberenderingapp.Adapter.VideoViewHolder;
 import com.google.android.youtube.player.YouTubeBaseActivity;
-import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerView;
 import com.google.android.youtube.player.YouTubeThumbnailView;
@@ -23,12 +26,8 @@ public class MainActivity extends YouTubeBaseActivity  {
 
     LinkApiService linkApiService;
     RecyclerView youtubeVideosRv;
-    YouTubePlayer player;
 
-    YouTubePlayerView previousPlayerView;
-    YouTubeThumbnailView previousThumbnailView;
-    Button previousPlayButton;
-    VideoViewHolder previousViewHolder;
+    ProgressBar videosFetchingBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +37,7 @@ public class MainActivity extends YouTubeBaseActivity  {
         linkApiService = new LinkApiService();
 
         youtubeVideosRv=findViewById(R.id.youtubeRv);
+        videosFetchingBar=findViewById(R.id.videoFetchingBar);
 
         fetchVideoItems();
 
@@ -51,6 +51,8 @@ public class MainActivity extends YouTubeBaseActivity  {
             public void success(LinkResponseBody linkResponseBody) {
 
                 ArrayList<VideoItem> videoItems=linkResponseBody.getVideoItems();
+
+                videosFetchingBar.setVisibility(View.GONE);
 
                 setupVideosRecyclerView(videoItems);
 
@@ -67,44 +69,7 @@ public class MainActivity extends YouTubeBaseActivity  {
 
     private void setupVideosRecyclerView(ArrayList<VideoItem> videoItemsList)
     {
-        VideoAdapter videoAdapter= new VideoAdapter(this, videoItemsList) {
-            @Override
-            public void playVideo(VideoViewHolder videoViewHolder, final VideoItem videoItem) {
-
-
-                if (previousViewHolder!=null)
-                {
-
-                }
-
-
-              previousViewHolder=videoViewHolder;
-
-
-
-
-                videoViewHolder.youTubePlayerView.initialize(Config.YOUTUBE_API_KEY, new YouTubePlayer.OnInitializedListener() {
-                    @Override
-                    public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
-
-                        if (player!=null)
-                        {
-                            player.release();
-                            player=null;
-                        }
-
-                        player=youTubePlayer;
-
-                        player.loadVideo(videoItem.getVideoLink());
-                    }
-
-                    @Override
-                    public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
-
-                    }
-                });
-            }
-        };
+        VideoAdapter videoAdapter= new VideoAdapter(this, videoItemsList);
 
         final RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(MainActivity.this);
         youtubeVideosRv.setLayoutManager(mLayoutManager);

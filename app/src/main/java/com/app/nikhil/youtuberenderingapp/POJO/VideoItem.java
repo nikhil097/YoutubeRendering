@@ -1,4 +1,4 @@
-package com.app.nikhil.youtuberenderingapp;
+package com.app.nikhil.youtuberenderingapp.POJO;
 
 import com.google.gson.annotations.SerializedName;
 

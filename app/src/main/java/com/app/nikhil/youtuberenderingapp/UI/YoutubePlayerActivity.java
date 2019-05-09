@@ -1,9 +1,11 @@
-package com.app.nikhil.youtuberenderingapp;
+package com.app.nikhil.youtuberenderingapp.UI;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import com.app.nikhil.youtuberenderingapp.R;
+import com.app.nikhil.youtuberenderingapp.Rest.Config;
+import com.app.nikhil.youtuberenderingapp.POJO.VideoItem;
 import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
@@ -41,4 +43,6 @@ public class YoutubePlayerActivity extends YouTubeBaseActivity {
 
 
     }
+
+
 }

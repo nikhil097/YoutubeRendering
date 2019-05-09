@@ -1,4 +1,4 @@
-package com.app.nikhil.youtuberenderingapp;
+package com.app.nikhil.youtuberenderingapp.Rest;
 
 public interface ResponseCallback<T> {
 

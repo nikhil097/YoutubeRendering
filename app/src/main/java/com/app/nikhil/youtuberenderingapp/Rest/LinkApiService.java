@@ -1,7 +1,8 @@
-package com.app.nikhil.youtuberenderingapp;
+package com.app.nikhil.youtuberenderingapp.Rest;
+
+import com.app.nikhil.youtuberenderingapp.ApiResponseBody.LinkResponseBody;
 
 import okhttp3.OkHttpClient;
-import okhttp3.ResponseBody;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;

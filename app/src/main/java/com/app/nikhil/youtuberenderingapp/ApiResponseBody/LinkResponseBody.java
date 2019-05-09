@@ -1,5 +1,6 @@
-package com.app.nikhil.youtuberenderingapp;
+package com.app.nikhil.youtuberenderingapp.ApiResponseBody;
 
+import com.app.nikhil.youtuberenderingapp.POJO.VideoItem;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
