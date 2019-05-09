@@ -21,7 +21,7 @@ import com.google.android.youtube.player.YouTubeThumbnailView;
 
 import java.util.ArrayList;
 
-public abstract class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHolder>{
+public abstract class VideoAdapter extends RecyclerView.Adapter<VideoViewHolder>{
 
     Context context;
     ArrayList<VideoItem> videoItemList;
@@ -44,13 +44,15 @@ public abstract class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.Vid
         videoViewHolder.videoPlayButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-          //      videoViewHolder.youTubePlayerView.setVisibility(View.VISIBLE);
-                videoViewHolder.videoPlayButton.setVisibility(View.GONE);
-        //        videoViewHolder.youTubeThumbnailView.setVisibility(View.GONE);
-            //    playVideo(videoViewHolder.youTubePlayerView,videoItem);
+//                videoViewHolder.youtubeViewLayout.setVisibility(View.VISIBLE);
+//                videoViewHolder.videoPlayButton.setVisibility(View.GONE);
+//                videoViewHolder.youTubeThumbnailView.setVisibility(View.GONE);
+//                playVideo(videoViewHolder,videoItem);
 
-                Intent intent = YouTubeStandalonePlayer.createVideoIntent((Activity) context, Config.YOUTUBE_API_KEY, videoItem.getVideoLink());
-                context.startActivity(intent);
+                context.startActivity(new Intent(context,YoutubePlayerActivity.class).putExtra("videoItem",videoItem));
+
+            //    Intent intent = YouTubeStandalonePlayer.createVideoIntent((Activity) context, Config.YOUTUBE_API_KEY, videoItem.getVideoLink());
+            //    context.startActivity(intent);
 
             }
         });
@@ -82,27 +84,9 @@ public abstract class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.Vid
         this.videoItemList = videoItemList;
     }
 
-    public class VideoViewHolder extends RecyclerView.ViewHolder{
 
 
-        TextView videoTitle;
-        YouTubePlayerView youTubePlayerView;
-        YouTubeThumbnailView youTubeThumbnailView;
-        Button videoPlayButton;
 
-
-        public VideoViewHolder(@NonNull View itemView) {
-            super(itemView);
-
-            videoTitle=itemView.findViewById(R.id.videoTitle);
-            youTubePlayerView=itemView.findViewById(R.id.youtubeVideoView);
-            youTubeThumbnailView=itemView.findViewById(R.id.youtubeThumbnailView);
-            videoPlayButton=itemView.findViewById(R.id.videoPlayButton);
-
-        }
-    }
-
-
-    public abstract void playVideo(YouTubePlayerView youTubePlayerView,VideoItem videoItem);
+    public abstract void playVideo(VideoViewHolder videoViewHolder,VideoItem videoItem);
 
 }

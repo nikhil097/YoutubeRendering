@@ -2,7 +2,9 @@ package com.app.nikhil.youtuberenderingapp;
 
 import com.google.gson.annotations.SerializedName;
 
-public class VideoItem {
+import java.io.Serializable;
+
+public class VideoItem implements Serializable {
 
     @SerializedName("videoTitle")
     String videoTitle;

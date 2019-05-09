@@ -7,19 +7,28 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.RelativeLayout;
 
 import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerView;
+import com.google.android.youtube.player.YouTubeThumbnailView;
 
 import java.util.ArrayList;
 
-public class MainActivity extends YouTubeBaseActivity {
+public class MainActivity extends YouTubeBaseActivity  {
 
     LinkApiService linkApiService;
     RecyclerView youtubeVideosRv;
     YouTubePlayer player;
+
+    YouTubePlayerView previousPlayerView;
+    YouTubeThumbnailView previousThumbnailView;
+    Button previousPlayButton;
+    VideoViewHolder previousViewHolder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,8 +69,21 @@ public class MainActivity extends YouTubeBaseActivity {
     {
         VideoAdapter videoAdapter= new VideoAdapter(this, videoItemsList) {
             @Override
-            public void playVideo(YouTubePlayerView youTubePlayerView, final VideoItem videoItem) {
-                youTubePlayerView.initialize(Config.YOUTUBE_API_KEY, new YouTubePlayer.OnInitializedListener() {
+            public void playVideo(VideoViewHolder videoViewHolder, final VideoItem videoItem) {
+
+
+                if (previousViewHolder!=null)
+                {
+
+                }
+
+
+              previousViewHolder=videoViewHolder;
+
+
+
+
+                videoViewHolder.youTubePlayerView.initialize(Config.YOUTUBE_API_KEY, new YouTubePlayer.OnInitializedListener() {
                     @Override
                     public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
 
@@ -90,5 +112,6 @@ public class MainActivity extends YouTubeBaseActivity {
         youtubeVideosRv.setAdapter(videoAdapter);
 
     }
+
 
 }
